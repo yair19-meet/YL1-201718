@@ -1,22 +1,10 @@
 from turtle import *
 from random import randrange
+import time
+
 colormode(255)
 
-class Square(Turtle):
-    def __init__(self, size):
-        Turtle.__init__(self)
-        self.shapesize(size)
-        self.shape('square')
 
-    def random_color(self):
-        r = randrange(256)
-        g = randrange(256)
-        b = randrange(256)
-        self.color(r, g, b)
-
-
-square1 = Square(15)
-square1.random_color()
 
 
 class Rectangle(Turtle):
@@ -28,9 +16,38 @@ class Rectangle(Turtle):
         register_shape("rec", ((0, 0), (width, 0), (width, hieght), (0, hieght), (0, 0)))
         self.shape("rec")
 
-rec1 = Rectangle(100, 250)
+#rec1 = Rectangle(100, 250)
+
+class Square(Rectangle):
+    def __init__(self, size):
+        Rectangle.__init__(self, size, size)
+
+    def random_color2(self):
+        for i in range(10):
+            r = randrange(256)
+            g = randrange(256)
+            b = randrange(256)
+            self.color(r, g, b)
+            time.sleep(1)
 
 
+
+
+
+
+
+
+
+    def random_color(self):
+        r = randrange(256)
+        g = randrange(256)
+        b = randrange(256)
+        self.color(r, g, b)
+
+
+#square1 = Square(15)
+#square1.random_color2()
+#square1.size()
 
 class Hexagon(Turtle):
     def __init__(self, size):
@@ -62,7 +79,9 @@ class Polygon(Turtle):
         register_shape("Poly", shape)
         self.shape("Poly")
 
-#Polygon(6)
+
+
+Polygon(6)
 
 
 
