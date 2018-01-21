@@ -4,11 +4,7 @@ import random
 from ball import Ball
 import math
 
-screen = turtle.Screen()
-bg = "agar2.gif"
-screen.addshape(bg)
-t = turtle.clone()
-t.shape(bg)
+
 
 def get_random_ball_attributes():
     X = random.randint(-SCREEN_WIDTH // 2 + MAXIMUM_BALL_RADIUS, SCREEN_WIDTH // 2 - MAXIMUM_BALL_RADIUS)
@@ -118,8 +114,6 @@ def check_myball_collision():
             elif r_my_b > r_b:
                 MY_BALL.grow()
 
-
-
                 col = True
                 while col:
                     X, Y, X_axis_speed, Y_axis_speed, Radius, Color = get_random_ball_attributes()
@@ -142,6 +136,9 @@ def check_myball_collision():
                         ball.color(Color)
                         print(ball)
                         ball.showturtle()
+
+
+
 
 
 mouse_x = 0
@@ -172,6 +169,7 @@ print('Screen width: {}, height: {}'.format(SCREEN_WIDTH, SCREEN_HEIGHT))
 
 MY_BALL = Ball(0, 0, 3, 3, 50, "green")
 
+
 MY_BALL.showturtle()
 
 
@@ -184,7 +182,6 @@ MINIMUM_BALL_DY = -5
 MAXIMUM_BALL_DY = 5
 
 BALLS = []
-
 
 
 for i in range(NUMBER_OF_BALLS):
@@ -206,52 +203,15 @@ for ball in BALLS:
 
 turtle.Screen().getcanvas().bind('<Motion>', movearound)
 
-time.sleep(2)
-
 RUNNING = True
-
-
 
 place = 6
 old_p = 6
 
-mass = MY_BALL.r
-old_m = mass
-
-turtle.hideturtle()
-turtle.penup()
-
-mass_t = turtle.clone()
-mass_t.hideturtle()
-mass_t.penup()
-
-turtle.goto(-SCREEN_WIDTH // 2 + 50, SCREEN_HEIGHT // 2 - 50)
-mass_t.goto(-SCREEN_WIDTH // 2 + 100, SCREEN_HEIGHT // 2 - 50)
-turtle.write("Place: " + str(place))
-mass_t.write("Mass: " + str(mass))
-
 while RUNNING:
-    old_m = mass
-    mass = MY_BALL.r
-
     print(RUNNING)
-    old_s_w = SCREEN_WIDTH
     SCREEN_WIDTH = int(turtle.getcanvas().winfo_width())
-    if old_s_w != SCREEN_WIDTH:
-        turtle.clear()
-        turtle.write("Place: " + str(place))
-        mass_t.clear()
-        mass_t.write("Mass: " + str(mass))
-    old_s_h = SCREEN_HEIGHT
     SCREEN_HEIGHT = int(turtle.getcanvas().winfo_height())
-    if old_s_w != SCREEN_HEIGHT:
-        turtle.clear()
-        turtle.write("Place: " + str(place))
-        mass_t.clear()
-        mass_t.write("Mass: " + str(mass))
-
-    turtle.goto(-SCREEN_WIDTH // 2 + 50, SCREEN_HEIGHT // 2 - 50)
-    mass_t.goto(-SCREEN_WIDTH // 2 + 100, SCREEN_HEIGHT // 2 - 50)
     check_myball_collision()
     check_all_balls_collision()
     RUNNING = check_run
@@ -270,9 +230,7 @@ while RUNNING:
         turtle.clear()
         turtle.write("Place: " + str(place))
 
-    if old_m != mass:
-        mass_t.clear()
-        mass_t.write("Mass: " + str(mass))
+
 
 
 

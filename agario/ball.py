@@ -4,6 +4,7 @@ class Ball(Turtle):
     
     def __init__(self, x, y, dx, dy, r, color):
         Turtle.__init__(self)
+        self.hideturtle()
         self.penup()
         self.goto(x, y)
         self.dx = dx
@@ -12,13 +13,14 @@ class Ball(Turtle):
         self.shape("circle")
         self.shapesize(r/10)
         self.color(color)
+        print(self)
 
     def move(self, screen_width, screen_height):
         current_x = self.xcor()
-        new_x = current_x + self.xcor()
+        new_x = self.xcor() + self.dx
 
         current_y = self.ycor()
-        new_y = current_y + self.ycor()
+        new_y = self.ycor() + self.dy
 
         right_side_ball = new_x + self.r
         left_side_ball = new_x - self.r
@@ -28,10 +30,21 @@ class Ball(Turtle):
 
         self.goto(new_x, new_y)
 
-        if right_side_ball > screen_width/2 or left_side_ball < -screen_width/2:
+        if (right_side_ball > screen_width / 2 and self.dx > 0) or  \
+           (left_side_ball < -screen_width / 2 and self.dx < 0):
             self.dx = -self.dx
-        if up_side_ball > screen_height/2 or down_side_ball < -screen_height/2:
+        if (up_side_ball > screen_height / 2 and self.dy > 0) or  \
+           (down_side_ball < -screen_height / 2 and self.dy < 0):
             self.dy = -self.dy
-    
-    
-    
+
+    def grow(self, size=1):
+        self.r += size
+        self.shapesize(self.r / 10)
+
+
+    def __str__(self):
+        return '[x={}, y={}, r={}, dx={}, dy={}]'.format(self.xcor(), self.ycor(), self.r, self.dx, self.dy)
+
+
+
+
