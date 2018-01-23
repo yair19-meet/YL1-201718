@@ -151,15 +151,10 @@ def movearound(event):
     global mouse_y
     mouse_x = event.x - SCREEN_WIDTH // 2
     mouse_y = event.y * -1 + SCREEN_HEIGHT // 2
-    #m = (mouse_y - MY_BALL.ycor()) / (mouse_x - MY_BALL.xcor())
     d = math.sqrt(pow(mouse_x - MY_BALL.xcor(), 2) + pow(mouse_y - MY_BALL.ycor(), 2))
     d_my = math.sqrt(pow(MY_BALL.dx, 2) + pow(MY_BALL.dy, 2))
-    #v_my = math.sqrt(pow(MY_BALL.xcor(), 2) + pow(MY_BALL.ycor(), 2))
-    # MY_BALL.dx = v_mouse/v_mouse
-    # MY_BALL.dy = v_mouse/v_mouse
-    # # v_= (mouse_y - MY_BALL.ycor()) / (mouse_x - MY_BALL.xcor())
-    MY_BALL.dx = (mouse_x - MY_BALL.xcor()) / d * d_my
-    MY_BALL.dy = (mouse_y - MY_BALL.ycor()) / d * d_my
+    MY_BALL.dx = (mouse_x - MY_BALL.xcor()) / (d / d_my)
+    MY_BALL.dy = (mouse_y - MY_BALL.ycor()) / (d / d_my)
 
 turtle.tracer(0)
 turtle.hideturtle()
@@ -230,6 +225,7 @@ mass_t.goto(-SCREEN_WIDTH // 2 + 100, SCREEN_HEIGHT // 2 - 50)
 turtle.write("Place: " + str(place))
 mass_t.write("Mass: " + str(mass))
 
+
 while RUNNING:
     old_m = mass
     mass = MY_BALL.r
@@ -273,6 +269,13 @@ while RUNNING:
     if old_m != mass:
         mass_t.clear()
         mass_t.write("Mass: " + str(mass))
+
+
+
+
+
+
+
 
 
 
