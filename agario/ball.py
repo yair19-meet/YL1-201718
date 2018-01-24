@@ -37,7 +37,7 @@ class Ball(Turtle):
            (down_side_ball < -screen_height / 2 and self.dy < 0):
             self.dy = -self.dy
 
-    def grow(self, size=1):
+    def grow(self, size):
         self.r += size
         self.shapesize(self.r / 10)
 

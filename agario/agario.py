@@ -48,7 +48,7 @@ def check_all_balls_collision():
                 rad_a = ball_a.r
                 rad_b = ball_b.r
                 if rad_a > rad_b:
-                    ball_a.grow()
+                    ball_a.grow(rad_b/10)
                     ball_b.hideturtle()
                     col = True
                     while col:
@@ -75,7 +75,7 @@ def check_all_balls_collision():
                             ball_b.showturtle()
 
                 elif rad_b > rad_a:
-                    ball_b.grow()
+                    ball_b.grow(rad_a/10)
                     ball_a.hideturtle()
                     col = True
                     while col:
@@ -99,6 +99,75 @@ def check_all_balls_collision():
                             print(ball_a)
                             ball_a.showturtle()
                             break
+
+
+def little_col():
+    for ball in BALLS:
+        for little_b in LITTLE_BALLS:
+            if collide(ball, little_b):
+                print("Yes!")
+                rad_b = ball.r
+                rad_little = little_b.r
+                if rad_b > rad_little:
+                    ball.grow(rad_little/10)
+
+                    col = True
+                    while col:
+                        X = random.randint(-SCREEN_WIDTH // 2 + MAXIMUM_BALL_RADIUS, SCREEN_WIDTH // 2 - MAXIMUM_BALL_RADIUS)
+                        Y = random.randint(-SCREEN_HEIGHT // 2 + MAXIMUM_BALL_RADIUS, SCREEN_HEIGHT // 2 - MAXIMUM_BALL_RADIUS)
+                        Color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+                        
+                        little_b.hideturtle()
+                        little_b.goto(X, Y)
+
+                        col = False
+                        for ball in BALLS:
+                            if collide(little_b, ball):
+                                col = True
+                            if collide(little_b, MY_BALL):
+                                col = True
+                                break
+                        if not col:
+                            little_b.color(Color)
+                            little_b.showturtle()
+                            break
+
+def little_my_col():
+    for little_b in LITTLE_BALLS:
+            if collide(little_b, MY_BALL):
+                print("Yes!!")
+                rad_little = little_b.r
+                my_rad = MY_BALL.r
+                if my_rad > rad_little:
+                    MY_BALL.grow(rad_little/10)
+
+                    col = True
+                    while col:
+                        X = random.randint(-SCREEN_WIDTH // 2 + MAXIMUM_BALL_RADIUS, SCREEN_WIDTH // 2 - MAXIMUM_BALL_RADIUS)
+                        Y = random.randint(-SCREEN_HEIGHT // 2 + MAXIMUM_BALL_RADIUS, SCREEN_HEIGHT // 2 - MAXIMUM_BALL_RADIUS)
+                        Color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+                        
+                        little_b.hideturtle()
+                        little_b.goto(X, Y)
+
+                        col = False
+                        for ball in BALLS:
+                            if collide(little_b, ball):
+                                col = True
+                            if collide(little_b, MY_BALL):
+                                col = True
+                                break
+                        if not col:
+                            little_b.color(Color)
+                            little_b.showturtle()
+                            break
+
+
+                 
+                
+            
+
+
 check_run = True
 
 def check_myball_collision():
@@ -112,11 +181,11 @@ def check_myball_collision():
 
 
             if r_b > r_my_b:
-                ball.grow()
+                ball.grow(r_my_b/10)
                 check_run = False
 
             elif r_my_b > r_b:
-                MY_BALL.grow()
+                MY_BALL.grow(r_b/10)
 
 
 
@@ -199,6 +268,17 @@ for i in range(NUMBER_OF_BALLS):
 for ball in BALLS:
     ball.showturtle()
 
+
+LITTLE_BALLS = []
+
+for i in range(20):
+    X = random.randint(-SCREEN_WIDTH // 2 + MAXIMUM_BALL_RADIUS, SCREEN_WIDTH // 2 - MAXIMUM_BALL_RADIUS)
+    Y = random.randint(-SCREEN_HEIGHT // 2 + MAXIMUM_BALL_RADIUS, SCREEN_HEIGHT // 2 - MAXIMUM_BALL_RADIUS)
+    Color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+    ball = Ball(X, Y, 0, 0, 10, Color)
+    ball.showturtle()
+    LITTLE_BALLS.append(ball)
+
 turtle.Screen().getcanvas().bind('<Motion>', movearound)
 
 time.sleep(2)
@@ -250,6 +330,8 @@ while RUNNING:
     mass_t.goto(-SCREEN_WIDTH // 2 + 100, SCREEN_HEIGHT // 2 - 50)
     check_myball_collision()
     check_all_balls_collision()
+    little_col()
+    little_my_col()
     RUNNING = check_run
     move_all_balls()
     MY_BALL.move(SCREEN_WIDTH, SCREEN_HEIGHT)
