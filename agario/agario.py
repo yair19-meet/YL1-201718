@@ -3,12 +3,15 @@ import time
 import random
 from ball import Ball
 import math
+from datetime import datetime
 
-screen = turtle.Screen()
-bg = "agar2.gif"
-screen.addshape(bg)
-t = turtle.clone()
-t.shape(bg)
+# screen = turtle.Screen()
+# bg = "agar2.gif"
+# screen.addshape(bg)
+# t = turtle.clone()
+# t.shape(bg)
+
+# player = turtle.clone()
 
 def get_random_ball_attributes():
     X = random.randint(-SCREEN_WIDTH // 2 + MAXIMUM_BALL_RADIUS, SCREEN_WIDTH // 2 - MAXIMUM_BALL_RADIUS)
@@ -48,7 +51,7 @@ def check_all_balls_collision():
                 rad_a = ball_a.r
                 rad_b = ball_b.r
                 if rad_a > rad_b:
-                    ball_a.grow(rad_b/10)
+                    ball_a.grow(rad_b//10)
                     ball_b.hideturtle()
                     col = True
                     while col:
@@ -75,7 +78,7 @@ def check_all_balls_collision():
                             ball_b.showturtle()
 
                 elif rad_b > rad_a:
-                    ball_b.grow(rad_a/10)
+                    ball_b.grow(rad_a//10)
                     ball_a.hideturtle()
                     col = True
                     while col:
@@ -109,7 +112,7 @@ def little_col():
                 rad_b = ball.r
                 rad_little = little_b.r
                 if rad_b > rad_little:
-                    ball.grow(rad_little/10)
+                    ball.grow(rad_little//10)
 
                     col = True
                     while col:
@@ -139,7 +142,7 @@ def little_my_col():
                 rad_little = little_b.r
                 my_rad = MY_BALL.r
                 if my_rad > rad_little:
-                    MY_BALL.grow(rad_little/10)
+                    MY_BALL.grow(rad_little//10)
 
                     col = True
                     while col:
@@ -185,7 +188,7 @@ def check_myball_collision():
                 check_run = False
 
             elif r_my_b > r_b:
-                MY_BALL.grow(r_b/10)
+                MY_BALL.grow(r_b//10)
 
 
 
@@ -234,20 +237,45 @@ SCREEN_WIDTH = int(turtle.getcanvas().winfo_width())
 SCREEN_HEIGHT = int(turtle.getcanvas().winfo_height())
 print('Screen width: {}, height: {}'.format(SCREEN_WIDTH, SCREEN_HEIGHT))
 
-MY_BALL = Ball(0, 0, 3, 3, 50, "green")
+MY_BALL = Ball(0, 0, 3, 3, 30, "green")
 
 MY_BALL.showturtle()
 
 
 NUMBER_OF_BALLS = 5
-MINIMUM_BALL_RADIUS = 10
-MAXIMUM_BALL_RADIUS = 80
+MINIMUM_BALL_RADIUS = 11
+MAXIMUM_BALL_RADIUS = MY_BALL.r + 30
 MINIMUM_BALL_DX = -5
 MAXIMUM_BALL_DX = 5
 MINIMUM_BALL_DY = -5
 MAXIMUM_BALL_DY = 5
 
 BALLS = []
+
+draw = turtle.clone()
+draw.hideturtle()
+draw.penup()
+draw.color("lightgray")
+draw.setheading(90)
+xp = -1000
+for i in range(40):
+    draw.penup()
+    draw.goto(xp, -800)
+    draw.pendown()
+    draw.forward(3000)
+    xp +=50
+draw.penup()
+draw.setheading(0)
+yp = 500
+for i in range(18):
+    draw.penup()
+    draw.goto(-1000, yp)
+    draw.pendown()
+    draw.forward(1800)
+    yp -=50
+
+
+
 
 
 
@@ -301,38 +329,47 @@ mass_t.hideturtle()
 mass_t.penup()
 
 turtle.goto(-SCREEN_WIDTH // 2 + 50, SCREEN_HEIGHT // 2 - 50)
-mass_t.goto(-SCREEN_WIDTH // 2 + 100, SCREEN_HEIGHT // 2 - 50)
-turtle.write("Place: " + str(place))
-mass_t.write("Mass: " + str(mass))
+mass_t.goto(-SCREEN_WIDTH // 2 + 150, SCREEN_HEIGHT // 2 - 50)
+turtle.write("Rank: " + str(place), font = ("Arial", 10, "bold"))
+mass_t.write("Mass: " + str(mass), font = ("Arial", 10, "bold"))
 
+start_time = datetime.now()
+
+# player.goto(MY_BALL.xcor() - 10, MY_BALL.ycor())
+# player.write("Player")
 
 while RUNNING:
+    if MY_BALL.r <= 80:
+        MAXIMUM_BALL_RADIUS = MY_BALL.r + 30
     old_m = mass
     mass = MY_BALL.r
+
+    # player.clear()
+    # player.goto(MY_BALL.xcor() - 15, MY_BALL.ycor())
+    # player.write("Player", font = ("Ariel", 7, "bold"))
 
     print(RUNNING)
     old_s_w = SCREEN_WIDTH
     SCREEN_WIDTH = int(turtle.getcanvas().winfo_width())
     if old_s_w != SCREEN_WIDTH:
         turtle.clear()
-        turtle.write("Place: " + str(place))
+        turtle.write("Rank: " + str(place), font = ("Arial", 10, "bold"))
         mass_t.clear()
-        mass_t.write("Mass: " + str(mass))
+        mass_t.write("Mass: " + str(mass), font = ("Arial", 10, "bold"))
     old_s_h = SCREEN_HEIGHT
     SCREEN_HEIGHT = int(turtle.getcanvas().winfo_height())
     if old_s_w != SCREEN_HEIGHT:
         turtle.clear()
-        turtle.write("Place: " + str(place))
+        turtle.write("Rank: " + str(place), font = ("Arial", 10, "bold"))
         mass_t.clear()
-        mass_t.write("Mass: " + str(mass))
+        mass_t.write("Mass: " + str(mass), font = ("Arial", 10, "bold"))
 
     turtle.goto(-SCREEN_WIDTH // 2 + 50, SCREEN_HEIGHT // 2 - 50)
-    mass_t.goto(-SCREEN_WIDTH // 2 + 100, SCREEN_HEIGHT // 2 - 50)
+    mass_t.goto(-SCREEN_WIDTH // 2 + 150, SCREEN_HEIGHT // 2 - 50)
     check_myball_collision()
     check_all_balls_collision()
     little_col()
     little_my_col()
-    RUNNING = check_run
     move_all_balls()
     MY_BALL.move(SCREEN_WIDTH, SCREEN_HEIGHT)
     turtle.update()
@@ -346,11 +383,28 @@ while RUNNING:
 
     if old_p != place:
         turtle.clear()
-        turtle.write("Place: " + str(place))
-
+        turtle.write("Rank: " + str(place), font=("Arial", 10, "normal"))
     if old_m != mass:
         mass_t.clear()
-        mass_t.write("Mass: " + str(mass))
+        mass_t.write("Mass: " + str(mass), font=("Arial", 10, "bold"))
+
+
+    RUNNING = check_run
+
+end_time = datetime.now()
+t = turtle.clone()
+t.penup()
+t.goto(SCREEN_WIDTH // 2 - 200, 0)
+t.write("Time: " + str(int((end_time - start_time).total_seconds())) + " sec", font=("Arial", 20, "bold"))
+
+turtle.clear()
+mass_t.clear()
+turtle.goto(-SCREEN_WIDTH // 2 + 50, 0)
+turtle.write("Rank: " + str(place), font=("Arial", 20, "bold"))
+mass_t.goto(-75, 0)
+mass_t.write("Mass: " + str(mass), font=("Arial", 20, "bold"))
+
+turtle.mainloop()
 
 
 
