@@ -10,7 +10,15 @@ from datetime import datetime
 # screen.addshape(bg)
 # t = turtle.clone()
 # t.shape(bg)
+# first = turtle.clone()
+# player = turtle.clone()
 
+# p = turtle.clone()
+# turtle.register_shape("Player.gif")
+# p.shape("Player.gif")
+# p.shapesize(2)
+
+# first = turtle.clone()
 # player = turtle.clone()
 
 def get_random_ball_attributes():
@@ -238,8 +246,9 @@ SCREEN_HEIGHT = int(turtle.getcanvas().winfo_height())
 print('Screen width: {}, height: {}'.format(SCREEN_WIDTH, SCREEN_HEIGHT))
 
 MY_BALL = Ball(0, 0, 3, 3, 30, "green")
-
 MY_BALL.showturtle()
+# p.goto(MY_BALL.xcor(), MY_BALL.ycor())
+
 
 
 NUMBER_OF_BALLS = 5
@@ -337,16 +346,20 @@ start_time = datetime.now()
 
 # player.goto(MY_BALL.xcor() - 10, MY_BALL.ycor())
 # player.write("Player")
-
-while RUNNING:
+check_place = False
+while RUNNING  and check_place == False:
     if MY_BALL.r <= 80:
         MAXIMUM_BALL_RADIUS = MY_BALL.r + 30
     old_m = mass
     mass = MY_BALL.r
 
+    # p.goto(MY_BALL.xcor(), MY_BALL.ycor())
+    # p.shapesize(1, 2, 2)
+
     # player.clear()
     # player.goto(MY_BALL.xcor() - 15, MY_BALL.ycor())
     # player.write("Player", font = ("Ariel", 7, "bold"))
+
 
     print(RUNNING)
     old_s_w = SCREEN_WIDTH
@@ -373,13 +386,17 @@ while RUNNING:
     move_all_balls()
     MY_BALL.move(SCREEN_WIDTH, SCREEN_HEIGHT)
     turtle.update()
-    time.sleep(0.05)
+    time.sleep(0.0335)
 
     old_p = place
     place = 6
+    check_place = False
     for ball in BALLS:
         if MY_BALL.r > ball.r:
             place = place - 1
+        if place == 1:
+            check_place = True
+
 
     if old_p != place:
         turtle.clear()
@@ -390,6 +407,9 @@ while RUNNING:
 
 
     RUNNING = check_run
+
+
+
 
 end_time = datetime.now()
 t = turtle.clone()
@@ -403,6 +423,16 @@ turtle.goto(-SCREEN_WIDTH // 2 + 50, 0)
 turtle.write("Rank: " + str(place), font=("Arial", 20, "bold"))
 mass_t.goto(-75, 0)
 mass_t.write("Mass: " + str(mass), font=("Arial", 20, "bold"))
+
+if place == 1:
+    turtle.penup()
+    turtle.goto(-150, SCREEN_HEIGHT // 2 - 100)
+    turtle.color("green")
+    turtle.write("YOU WIN", font=("Arial", 40, "bold"))
+
+
+# if place == 1:
+#     first.write("YOU WIN!", font=("Arial", 20, "bold")
 
 turtle.mainloop()
 
