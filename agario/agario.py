@@ -5,6 +5,8 @@ from ball import Ball
 import math
 from datetime import datetime
 
+
+
 # screen = turtle.Screen()
 # bg = "agar2.gif"
 # screen.addshape(bg)
@@ -224,6 +226,21 @@ def check_myball_collision():
                         ball.showturtle()
 
 
+#def move_fast():
+#    DX = MY_BALL.dx + 1
+#    DY = MY_BALL.dy + 1
+#    MY_BALL.dx = DX
+#    MY_BALL.dy = DY
+
+#SPACEBAR = "space"
+
+#onkey = turtle.clone()
+#turtle.onkeypress(move_fast, SPACEBAR)
+
+#turtle.listen()    
+    
+
+
 mouse_x = 0
 mouse_y = 0
 def movearound(event):
@@ -424,11 +441,32 @@ turtle.write("Rank: " + str(place), font=("Arial", 20, "bold"))
 mass_t.goto(-75, 0)
 mass_t.write("Mass: " + str(mass), font=("Arial", 20, "bold"))
 
-if place == 1:
+#for i in range(10):
+   # turtle.goto(-SCREEN_WIDTH // 2 + 50, 0)
+   # turtle.write("Rank: " + str(place), font=("Arial", 20, "bold"))
+    #mass_t.goto(-75, 0)
+    #mass_t.write("Mass: " + str(mass), font=("Arial", 20, "bold"))
+   # turtle.clear()
+   # mass_t.clear()
+   # time.sleep(2)
+
+if place > 1:
+    print("qwef")
+    screen = turtle.Screen()
+    bg = "game_over.gif"
+    screen.addshape(bg)
+    t = turtle.clone()
+    t.shape(bg)
+
+else:
     turtle.penup()
     turtle.goto(-150, SCREEN_HEIGHT // 2 - 100)
     turtle.color("green")
     turtle.write("YOU WIN", font=("Arial", 40, "bold"))
+
+
+
+ 
 
 
 # if place == 1:
