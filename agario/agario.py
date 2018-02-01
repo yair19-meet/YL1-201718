@@ -230,7 +230,7 @@ def movearound(event):
     global mouse_x
     global mouse_y
     mouse_x = event.x - SCREEN_WIDTH // 2
-    mouse_y = event.y * -1 + SCREEN_HEIGHT // 2
+    mouse_y = -event.y + SCREEN_HEIGHT // 2
     d = math.sqrt(pow(mouse_x - MY_BALL.xcor(), 2) + pow(mouse_y - MY_BALL.ycor(), 2))
     d_my = math.sqrt(pow(MY_BALL.dx, 2) + pow(MY_BALL.dy, 2))
     MY_BALL.dx = (mouse_x - MY_BALL.xcor()) / (d / d_my)
