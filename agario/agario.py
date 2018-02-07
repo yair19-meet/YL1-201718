@@ -225,7 +225,6 @@ def check_myball_collision():
                         print(ball)
                         ball.showturtle()
 
-
 def move_fast():
    DX = MY_BALL.dx + 1
    DY = MY_BALL.dy + 1
@@ -275,9 +274,13 @@ def movearound(event):
     mouse_x = event.x - SCREEN_WIDTH // 2
     mouse_y = -event.y + SCREEN_HEIGHT // 2
     d = math.sqrt(pow(mouse_x - MY_BALL.xcor(), 2) + pow(mouse_y - MY_BALL.ycor(), 2))
+    print("d: " + str(d))
     d_my = math.sqrt(pow(MY_BALL.dx, 2) + pow(MY_BALL.dy, 2))
+    print("d_my: " + str(d_my))
     MY_BALL.dx = (mouse_x - MY_BALL.xcor()) / (d / d_my)
     MY_BALL.dy = (mouse_y - MY_BALL.ycor()) / (d / d_my)
+    print("DX: " + str(MY_BALL.dx))
+    print("DY: " + str(MY_BALL.dy))
 
 turtle.tracer(0)
 turtle.hideturtle()
@@ -361,10 +364,9 @@ for i in range(20):
 
 turtle.Screen().getcanvas().bind('<Motion>', movearound)
 
-time.sleep(2)
+time.sleep(1)
 
 RUNNING = True
-
 
 
 place = 6
@@ -379,6 +381,31 @@ turtle.penup()
 mass_t = turtle.clone()
 mass_t.hideturtle()
 mass_t.penup()
+
+S = turtle.clone()
+S.hideturtle()
+S.penup()
+S.pencolor("red")
+
+Space = turtle.clone()
+Space.hideturtle()
+Space.penup()
+Space.pencolor("blue")
+
+P = turtle.clone()
+P.hideturtle()
+P.penup()
+P.pencolor("green")
+
+S.goto(SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT // 2 - 50)
+S.write("S = Slow Motion", font = ("Arial", 12, "bold"))
+
+Space.goto(SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT // 2 - 70)
+Space.write("SPACE = Speed", font = ("Arial", 12, "bold"))
+
+P.goto(SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT // 2 - 90)
+P.write("P = Pause", font = ("Arial", 12, "bold"))
+
 
 turtle.goto(-SCREEN_WIDTH // 2 + 50, SCREEN_HEIGHT // 2 - 50)
 mass_t.goto(-SCREEN_WIDTH // 2 + 150, SCREEN_HEIGHT // 2 - 50)
@@ -449,6 +476,19 @@ while RUNNING and not check_place:
         turtle.write("Rank: " + str(place), font=("Arial", 10, "bold"))
         mass_t.clear()
         mass_t.write("Mass: " + str(mass), font=("Arial", 10, "bold"))
+
+        S.clear()
+        S.goto(SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT // 2 - 50)
+        S.write("S = Slow Motion", font=("Arial", 12, "bold"))
+
+        Space.clear()
+        Space.goto(SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT // 2 - 70)
+        Space.write("SPACE = Speed", font=("Arial", 12, "bold"))
+
+        P.clear()
+        P.goto(SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT // 2 - 90)
+        P.write("P = Pause", font=("Arial", 12, "bold"))
+
     old_s_h = SCREEN_HEIGHT
     SCREEN_HEIGHT = int(turtle.getcanvas().winfo_height())
     if old_s_w != SCREEN_HEIGHT:
@@ -457,8 +497,23 @@ while RUNNING and not check_place:
         mass_t.clear()
         mass_t.write("Mass: " + str(mass), font=("Arial", 10, "bold"))
 
+        S.clear()
+        S.goto(SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT // 2 - 50)
+        S.write("S = Slow Motion", font=("Arial", 12, "bold"))
+
+        Space.clear()
+        Space.goto(SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT // 2 - 70)
+        Space.write("SPACE = Speed", font=("Arial", 12, "bold"))
+
+        P.clear()
+        P.goto(SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT // 2 - 90)
+        P.write("P = Pause", font=("Arial", 12, "bold"))
+
+
+
     turtle.goto(-SCREEN_WIDTH // 2 + 50, SCREEN_HEIGHT // 2 - 50)
     mass_t.goto(-SCREEN_WIDTH // 2 + 150, SCREEN_HEIGHT // 2 - 50)
+
 
     turtle.update()
     time.sleep(SLEEP)
